@@ -27,7 +27,7 @@
     },
     "replace": {
         "abuseio/parser-woody": "*"
-    }
+    },
     "autoload": {
         "psr-4": {
             "AbuseIO\\Parser\\Arf\\": "src/"
