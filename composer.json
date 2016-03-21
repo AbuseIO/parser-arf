@@ -1,7 +1,7 @@
 {
     "name": "abuseio/parser-arf",
     "description": "Parser addon for handling common ARF notifications",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "keywords": ["laravel", "abuseio", "parser", "arf"],
     "homepage": "http://abuse.io",
     "type": "library",
@@ -26,7 +26,13 @@
         "abuseio/parser-common": "1.1.* || dev-master"
     },
     "replace": {
-        "abuseio/parser-woody": "*"
+        "abuseio/parser-woody": "*",
+        "abuseio/parser-dnsblde": "*",
+        "abuseio/parser-iecccom": "*",
+        "abuseio/parser-usgo": "*",
+        "abuseio/parser-juno": "*",
+        "abuseio/parser-junkemailfilter": "*"
+
     },
     "autoload": {
         "psr-4": {
