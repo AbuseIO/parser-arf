@@ -1,7 +1,7 @@
 {
     "name": "abuseio/parser-arf",
     "description": "Parser addon for handling common ARF notifications",
-    "version": "1.0.",
+    "version": "1.0.1",
     "keywords": ["laravel", "abuseio", "parser", "arf"],
     "homepage": "http://abuse.io",
     "type": "library",
@@ -25,6 +25,9 @@
         "php": ">=5.5.9",
         "abuseio/parser-common": "1.1.* || dev-master"
     },
+    "replace": {
+        "abuseio/parser-woody": "*"
+    }
     "autoload": {
         "psr-4": {
             "AbuseIO\\Parser\\Arf\\": "src/"
