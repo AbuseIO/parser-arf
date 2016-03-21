@@ -36,8 +36,24 @@ class Arf extends Parser
         $this->feedName = 'default';
 
         if ($this->isKnownFeed() && $this->isEnabledFeed() && $this->hasArfMail()) {
+            // As this is a generic FBL parser we need to see which was the source and add the name
+            // to the report, so its origin is clearly shown.
+            $source = $this->parsedMail->getHeader('from');
+            foreach (config("{$this->configBase}.parser.aliases") as $from => $alias) {
+                if (preg_match($from, $source)) {
+                    $source = $alias;
+                }
+            }
+
             if (preg_match_all('/([\w\-]+): (.*)[ ]*\r?\n/', $this->arfMail['report'], $regs)) {
                 $report = array_combine($regs[1], $regs[2]);
+
+                if (empty($report['Received-Date'])) {
+                    if (!empty($report['Arrival-Date'])) {
+                        $report['Received-Date'] = $report['Arrival-Date'];
+                        unset($report['Arrival-Date']);
+                    }
+                }
 
                 if ($this->hasRequiredFields($report) === true) {
                     // incident has all requirements met, filter and add!
@@ -52,11 +68,10 @@ class Arf extends Parser
                     $report['evidence'] = $this->arfMail['evidence'];
 
                     $incident = new Incident();
-                    $incident->source      = config("{$this->configBase}.parser.name");
+                    $incident->source      = $source;
                     $incident->source_id   = false;
                     $incident->ip          = $report['Source-IP'];
                     $incident->domain      = false;
-                    $incident->uri         = false;
                     $incident->class       = config("{$this->configBase}.feeds.{$this->feedName}.class");
                     $incident->type        = config("{$this->configBase}.feeds.{$this->feedName}.type");
                     $incident->timestamp   = strtotime($report['Received-Date']);

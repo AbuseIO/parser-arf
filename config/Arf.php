@@ -10,6 +10,10 @@ return [
         'body_map'      => [
             //
         ],
+        // The aliases convert the body_map address into a more friendly source name
+        'aliases'       => [
+            '/nobody@woody.ch/'                             => 'Woody',
+        ]
     ],
 
     'feeds' => [
@@ -26,4 +30,3 @@ return [
 
     ],
 ];
-
