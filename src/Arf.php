@@ -52,7 +52,7 @@ class Arf extends Parser
                 }
             }
 
-            if (preg_match_all('/([\w\-]+): (.*)[ ]*\r?\n/', $this->arfMail['report'], $regs)) {
+            if (preg_match_all('/([\w\-]+): (.*)[ ]*\r?\n/', $this->arfMail['report'] . PHP_EOL, $regs)) {
                 $report = array_combine($regs[1], $regs[2]);
 
                 if (empty($report['Received-Date'])) {
